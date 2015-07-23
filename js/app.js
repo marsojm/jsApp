@@ -22,9 +22,11 @@ $(document).ready(function(){
           var data = {};
           data.items = self.presenter.formatData(rawData);
           data.errors = [];
+
           if (!result.success) {
             data.errors.push(result.msg);
           }
+          data.isSuccess = false;
           self.view.render(data);
 
           break;
@@ -44,8 +46,10 @@ $(document).ready(function(){
           var data = {};
           data.items = self.presenter.formatData(rawData);
           data.errors = [];
+          data.isSuccess = true;
           if (!result.success) {
             data.errors.push(result.msg);
+            data.isSuccess = false;
           }
           self.view.render(data);
 

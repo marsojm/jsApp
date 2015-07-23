@@ -4,6 +4,7 @@ var ViewModel = function(actionHandler) {
   self.errors = ko.observableArray();
   self.handler = actionHandler;
   self.toEdit = ko.observable(null);
+  self.isSuccess = ko.observable(false);
 
   self.init = function(data) {
     for(var i=0; i < data.items.length; i++) {
@@ -20,6 +21,7 @@ var ViewModel = function(actionHandler) {
     for(var i=0; i < data.errors.length; i++) {
       self.errors.push(data.errors[i]);
     }
+    self.isSuccess(data.isSuccess);
   };
 
   self.remove = function(data) {
@@ -31,6 +33,11 @@ var ViewModel = function(actionHandler) {
   };
 
   self.initializeEdit = function(data) {
-    self.toEdit(data);
+    var d = {};
+    d.id = data.id;
+    d.name = data.name;
+    d.age = data.age;
+    d.salary = data.salary;
+    self.toEdit(d);
   };
 };

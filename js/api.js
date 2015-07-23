@@ -6,28 +6,21 @@ var db = [
 
 var API = function() {
   var self = this;
-  self.validate = function(data) {
-      if (!data.hasOwnProperty("name")) {
 
-      }
-      if (!data.hasOwnProperty("age")) {
-
-      }
-      if (!data.hasOwnProperty("name")) {
-
-      }
-      return true;
-  };
 
   self.update = function(data) {
+    if (data.name === "") return { success:false, msg: "Name is required" };
+    if (data.age < 1 ) return { success:false, msg: "Age must be a positive integer" };
+    if (data.salary < 1 ) return { success:false, msg: "Salary must be a positive integer" };
+
     for (idx in db) {
       if (db[idx].id === data.id) {
         db[idx] = data;
-        return { success:true, msg: "" };
+        return { success:true, msg: "Successfully updated", id:data.id };
       }
     }
 
-    return { success:false, msg: "Successfully updated", id:data.id };
+    return { success:false, msg: "Did not find item with id " + data.id };
   };
 
   self.getAll = function() {
@@ -41,19 +34,8 @@ var API = function() {
         return { success:true, msg: "" };
       }
     }
-    console.log(db);
+
     return { success:false, msg: "No item was found with id " + id }
   };
 
-  self.save = function(data) {
-    var isValid = self.validate(data);
-    if (isValid) {
-      var id = db[db.length - 1].id + 1;
-      data.id = id;
-      db.push(data);
-      console.log(db);
-      return {success:true, msg:"", id:id};
-    }
-    return {success:false, msg:"Unable to save the item.", id:-1};; // return invalid id
-  };
 };

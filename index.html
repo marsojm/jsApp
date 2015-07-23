@@ -26,6 +26,9 @@
         <div class="alert alert-danger" role="alert" data-bind="visible: errors().length > 0, foreach: errors">
           <p data-bind="text: $data"></p>
         </div>
+        <div class="alert alert-success" role="alert" data-bind="visible: $root.isSuccess">
+          <p>Successfully updated!</p>
+        </div>
         <table class="table table-striped">
           <thead>
             <tr><th>Name</th><th>Age</th><th>Salary</th><th>Actions</th></tr>
