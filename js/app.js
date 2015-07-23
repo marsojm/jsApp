@@ -3,7 +3,7 @@ $(document).ready(function(){
     var self = this;
     self.api = new API();
     self.presenter = new Presenter();
-    self.view = new viewModel(self);
+    self.view = new ViewModel(self);
 
     self.init = function() {
       var rawData = self.api.getAll();
@@ -12,7 +12,21 @@ $(document).ready(function(){
     };
 
     self.sendAction = function(action) {
-      console.log(action);
+
+      switch (action.action) {
+        case 'REMOVE':
+          console.log("remove");
+          break;
+        case 'CREATE':
+          console.log("create");
+          break;
+        case 'UPDATE':
+          console.log('update');
+          break;
+        default:
+          console.log('unknown action');
+
+      }
     };
 
   };
