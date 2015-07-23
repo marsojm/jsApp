@@ -35,7 +35,9 @@
               <td><span data-bind="text: name"></span></td>
               <td><span data-bind="text: age, attr: {title: experience} , style: { 'font-weight': (experienceBold ? 'bold' : 'normal') }"></span></td>
               <td data-bind="style: { 'background-color' : salaryColor }"><span data-bind="text: salary, attr: { title : salaryTitle }"></span></td>
-              <td><button class="btn btn-danger" type="submit" data-bind="click: $root.remove">Remove</button></td>
+              <td><button class="btn btn-default" type="submit" data-bind="">Edit</button>
+                  <button class="btn btn-danger" type="submit" data-bind="click: $root.remove">Remove</button>
+              </td>
             </tr>
           </tbody>
         </table>
