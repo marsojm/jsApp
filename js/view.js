@@ -3,6 +3,7 @@ var ViewModel = function(actionHandler) {
   self.persons = ko.observableArray();
   self.errors = ko.observableArray();
   self.handler = actionHandler;
+  self.toEdit = ko.observable(null);
 
   self.init = function(data) {
     for(var i=0; i < data.items.length; i++) {
@@ -23,5 +24,13 @@ var ViewModel = function(actionHandler) {
 
   self.remove = function(data) {
     self.handler.sendAction({action:'REMOVE',params: {id: data.id}});
+  };
+
+  self.update = function(data) {
+    self.handler.sendAction({action:'UPDATE',params: {data: data}});
+  };
+
+  self.initializeEdit = function(data) {
+    self.toEdit(data);
   };
 };

@@ -16,8 +16,18 @@ var API = function() {
       if (!data.hasOwnProperty("name")) {
 
       }
-
       return true;
+  };
+
+  self.update = function(data) {
+    for (idx in db) {
+      if (db[idx].id === data.id) {
+        db[idx] = data;
+        return { success:true, msg: "" };
+      }
+    }
+
+    return { success:false, msg: "Successfully updated", id:data.id };
   };
 
   self.getAll = function() {
@@ -42,8 +52,8 @@ var API = function() {
       data.id = id;
       db.push(data);
       console.log(db);
-      return id;
+      return {success:true, msg:"", id:id};
     }
-    return -1; // return invalid id
+    return {success:false, msg:"Unable to save the item.", id:-1};; // return invalid id
   };
 };

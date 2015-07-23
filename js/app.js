@@ -26,13 +26,29 @@ $(document).ready(function(){
             data.errors.push(result.msg);
           }
           self.view.render(data);
-          console.log("remove");
+
           break;
         case 'CREATE':
           console.log("create");
           break;
         case 'UPDATE':
-          console.log('update');
+          var data = action.params.data;
+          var d = {};
+          d.id = data.id;
+          d.name = data.name;
+          d.age = data.age;
+          d.salary = data.salary;
+          var result = self.api.update(d);
+
+          var rawData = self.api.getAll();
+          var data = {};
+          data.items = self.presenter.formatData(rawData);
+          data.errors = [];
+          if (!result.success) {
+            data.errors.push(result.msg);
+          }
+          self.view.render(data);
+
           break;
         default:
           console.log('unknown action');
