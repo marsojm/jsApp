@@ -23,6 +23,9 @@
           <h1>App</h1>
       </div>
       <div class="row">
+        <div class="alert alert-danger" role="alert" data-bind="visible: errors().length > 0">
+          <p></p>
+        </div>
         <table class="table table-striped">
           <thead>
             <tr><th>Name</th><th>Age</th><th>Salary</th><th>Actions</th></tr>

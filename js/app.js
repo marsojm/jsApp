@@ -7,7 +7,9 @@ $(document).ready(function(){
 
     self.init = function() {
       var rawData = self.api.getAll();
-      var data = self.presenter.formatData(rawData);
+      var data = {};
+      data.items = self.presenter.formatData(rawData);
+      data.errors = [];
       self.view.init(data);
     };
 
@@ -15,6 +17,15 @@ $(document).ready(function(){
 
       switch (action.action) {
         case 'REMOVE':
+          var result = self.api.remove(action.params.id);
+          var rawData = self.api.getAll();
+          var data = {};
+          data.items = self.presenter.formatData(rawData);
+          data.errors = [];
+          if (!result.success) {
+            data.errors.push(result.msg);
+          }
+          self.view.render(data);
           console.log("remove");
           break;
         case 'CREATE':

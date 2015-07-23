@@ -24,6 +24,17 @@ var API = function() {
     return db;
   };
 
+  self.remove = function(id) {
+    for (idx in db) {
+      if (db[idx].id === id) {
+        db.splice(idx,1);
+        return { success:true, msg: "" };
+      }
+    }
+    console.log(db);
+    return { success:false, msg: "No item was found with id " + id }
+  };
+
   self.save = function(data) {
     var isValid = self.validate(data);
     if (isValid) {
