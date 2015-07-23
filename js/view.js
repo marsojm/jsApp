@@ -1,4 +1,4 @@
-var viewModel = function(actionHandler) {
+var ViewModel = function(actionHandler) {
   var self = this;
   self.persons = ko.observableArray();
   self.handler = actionHandler;
