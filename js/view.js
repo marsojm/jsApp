@@ -6,18 +6,13 @@ var ViewModel = function(actionHandler) {
   self.toEdit = ko.observable(null);
   self.isSuccess = ko.observable(false);
 
-  self.init = function(data) {
-    for(var i=0; i < data.items.length; i++) {
-      self.persons.push(data.items[i]);
-    }
-  };
-
   self.render = function(data) {
     self.persons.removeAll();
     for(var i=0; i < data.items.length; i++) {
       self.persons.push(data.items[i]);
     }
     self.errors.removeAll();
+
     for(var i=0; i < data.errors.length; i++) {
       self.errors.push(data.errors[i]);
     }

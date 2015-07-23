@@ -23,7 +23,7 @@
           <h1>App</h1>
       </div>
       <div class="row">
-        <div class="alert alert-danger" role="alert" data-bind="visible: errors().length > 0, foreach: errors">
+        <div class="alert alert-danger" role="alert" data-bind="visible: $root.errors().length > 0, foreach: errors">
           <p data-bind="text: $data"></p>
         </div>
         <div class="alert alert-success" role="alert" data-bind="visible: $root.isSuccess">
@@ -93,6 +93,7 @@
     <script type='text/javascript' src="js/lib/knockout/knockout.js"></script>
     <script type='text/javascript' src='js/api.js'></script>
     <script type='text/javascript' src='js/view.js'></script>
+    <script type='text/javascript' src='js/vmo.js'></script>
     <script type='text/javascript' src='js/presenter.js'></script>
     <script type='text/javascript' src='js/app.js'></script>
 

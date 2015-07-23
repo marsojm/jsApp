@@ -1,21 +1,46 @@
-var Presenter = function() {
+var Presenter = function(handler) {
   var self = this;
+  self.viewModel = new ViewModel(self);
+  self.handler = handler;
 
-  self.format = function(item) {
-    item.salaryTitle = item.salary <= 3000 ? "poor" : "rich";
-    item.salaryColor = item.salary <= 3000 ? "yellow" : "green";
+  self.render = function(dto) {
 
-    item.experience = item.age < 25 ? "young gun" : "professional";
-    item.experienceBold = item.age >= 25;
-    return item;
+    var result = {items:[],errors:[],isSuccess:false};
+
+    for(var i=0; i < dto.items.length; i++) {
+      result.items.push(new VMO(dto.items[i]));
+    }
+    for(var i=0; i < dto.errors.length; i++) {
+      result.errors.push(dto.errors[i]);
+    }
+    if (dto.hasOwnProperty('isSuccess')) {
+      result.isSuccess = dto.isSuccess;
+    }
+
+    self.viewModel.render(result);
+  }
+
+  self.sendAction = function(action) {
+    switch (action.action) {
+      case 'REMOVE':
+        self.handler.handleAction(action);
+        break;
+      case 'CREATE':
+        console.log("not implemented");
+        break;
+      case 'UPDATE':
+        var data = action.params.data;
+        var d = {};
+        d.id = data.id;
+        d.name = data.name;
+        d.age = data.age;
+        d.salary = data.salary;
+        action.params.data = d;
+        self.handler.handleAction(action);
+        break;
+      default:
+        console.log('unknown action');
+    }
   };
 
-  self.formatData = function(data) {
-    var result = [];
-    for(var i=0; i < data.length; i++) {
-      var item = self.format(data[i]);
-      result.push(item);
-    }
-    return result;
-  }
 };
