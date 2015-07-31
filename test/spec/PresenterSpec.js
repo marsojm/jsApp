@@ -58,4 +58,42 @@ describe("Presenter", function(){
       expect(receivedAction.params.data.salary).toEqual(300);
     });
   });
+
+  describe("when the age is less than 25", function() {
+    beforeEach(function() {
+      var d = {items: [{id:1,name:"Joe", age:20, salary:3000}],
+              errors:[],
+              isSuccess: false,
+      };
+      presenter.load(d);
+    });
+
+    it("the experience title should be 'young gun'", function() {
+      var d = presenter.getVMO();
+      expect(d.items[0].experience).toEqual("young gun");
+    });
+    it("the experience text should not be bolded", function() {
+      var d = presenter.getVMO();
+      expect(d.items[0].experienceBold).toBe(false);
+    });
+  });
+
+  describe("when the age is atleast 25", function() {
+    beforeEach(function() {
+      var d = {items: [{id:1,name:"Joe", age:25, salary:3000}],
+              errors:[],
+              isSuccess: false,
+      };
+      presenter.load(d);
+    });
+
+    it("the experience title should be 'professional'", function() {
+      var d = presenter.getVMO();
+      expect(d.items[0].experience).toEqual("professional");
+    });
+    it("the experience text should be bolded", function() {
+      var d = presenter.getVMO();
+      expect(d.items[0].experienceBold).toBe(true);
+    });
+  });
 });
