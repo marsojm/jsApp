@@ -21,10 +21,12 @@ var ViewModel = function(actionHandler) {
 
   self.remove = function(data) {
     self.handler.sendAction({action:'REMOVE',params: {id: data.id}});
+    self.render(self.handler.getVMO());
   };
 
   self.update = function(data) {
     self.handler.sendAction({action:'UPDATE',params: {data: data}});
+    self.render(self.handler.getVMO());
   };
 
   self.initializeEdit = function(data) {
@@ -34,5 +36,9 @@ var ViewModel = function(actionHandler) {
     d.age = data.age;
     d.salary = data.salary;
     self.toEdit(d);
+  };
+
+  self.init = function() {
+    self.render(self.handler.getVMO());
   };
 };

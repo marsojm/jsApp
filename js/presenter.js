@@ -1,9 +1,10 @@
 var Presenter = function(handler) {
   var self = this;
-  self.viewModel = new ViewModel(self);
+  //self.viewModel = new ViewModel(self);
   self.handler = handler;
 
-  self.render = function(dto) {
+  self.vmo = {items:[],errors:[],isSuccess:false};
+  self.load = function(dto) {
 
     var result = {items:[],errors:[],isSuccess:false};
 
@@ -17,16 +18,17 @@ var Presenter = function(handler) {
       result.isSuccess = dto.isSuccess;
     }
 
-    self.viewModel.render(result);
-  }
+    self.vmo = result;
+  };
+
+  self.getVMO = function() {
+    return self.vmo;
+  };
 
   self.sendAction = function(action) {
     switch (action.action) {
       case 'REMOVE':
         self.handler.handleAction(action);
-        break;
-      case 'CREATE':
-        console.log("not implemented");
         break;
       case 'UPDATE':
         var data = action.params.data;

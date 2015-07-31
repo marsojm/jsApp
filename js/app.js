@@ -3,7 +3,7 @@ $(document).ready(function(){
     var self = this;
     self.api = new API();
     self.presenter = new Presenter(self);
-
+    self.viewModel = new ViewModel(self.presenter);
 
     self.init = function() {
       var data = {
@@ -11,7 +11,8 @@ $(document).ready(function(){
                   errors: [],
                   isSuccess: false,
                   };
-      self.presenter.render(data);
+      self.presenter.load(data);
+      self.viewModel.init();
     };
 
     self.handleAction = function(action) {
@@ -27,11 +28,8 @@ $(document).ready(function(){
             data.errors.push(result.msg);
           }
           data.isSuccess = false;
-          self.presenter.render(data);
+          self.presenter.load(data);
 
-          break;
-        case 'CREATE':
-          console.log("create");
           break;
         case 'UPDATE':
           var result = self.api.update(action.params.data);
@@ -44,7 +42,7 @@ $(document).ready(function(){
             data.errors.push(result.msg);
             data.isSuccess = false;
           }
-          self.presenter.render(data);
+          self.presenter.load(data);
 
           break;
         default:
@@ -57,5 +55,5 @@ $(document).ready(function(){
 
   var app = new App();
   app.init();
-  ko.applyBindings(app.presenter.viewModel);
+  ko.applyBindings(app.viewModel);
 });
